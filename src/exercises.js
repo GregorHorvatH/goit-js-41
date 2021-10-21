@@ -25,7 +25,7 @@
 // то выводи строку "14 ч.", без минут.
 
 // const hours = 14;
-// const minutes = 26;
+// const minutes = 0;
 // let timestring; // обратите внимание на переиспользование переменной
 
 // if (minutes > 0) {
@@ -33,6 +33,11 @@
 // } else {
 //   timestring = `${hours} ч.`;
 // }
+
+// const timestring = minutes > 0
+//   ? `${hours} ч. ${minutes} мин.`
+//   : `${hours} ч.`;
+
 // console.log(timestring);
 
 // ============================================================================
@@ -48,10 +53,18 @@
 // const userNumber = parseInt(userInput);
 // let answer;
 
-// if (userNumber > 0) answer = 'Это положительное число';
-// if (userNumber < 0) answer = 'Это отрицательное число';
-// if (userNumber === 0) answer = 'Это ноль';
-// if (isNaN(userNumber)) answer = 'Это не число';
+// if (userNumber > 0) {
+//   answer = 'Это положительное число';
+// } else if (userNumber < 0) {
+//   answer = 'Это отрицательное число';
+// } else if (userNumber === 0) {
+//   answer = 'Это ноль';
+// } else {
+//   answer = 'Это не число';
+// }
+
+// // if (isNaN(userNumber)) answer = 'Это не число';
+
 // console.log(answer);
 
 // ============================================================================
@@ -61,17 +74,18 @@
 // то выведи в консоль максимальное из них.
 // В противном случае в консоли должна быть сумма значения b и числа 512.
 
-// const a = 120;
+// const a = 1170;
 // const b = 180;
 // let result;
 
-// if (a && b > 100) {
+// if (a > 100 && b > 100) {
 //   // на что можно ещё заменить?
 //   // а если они равные?
 //   if (a > b) result = a;
 //   if (a < b) result = b;
+//   // result = Math.max(a, b);
 // } else {
-//   result = a + b;
+//   result = b + 512;
 // }
 // console.log(result);
 
@@ -82,10 +96,11 @@
 // Если нет, добавь в конец значения link этот символ.
 // Используй конструкцию if...else.
 
-// let link = 'https://my-site.com/about';
+// let link = 'https://my-site.com/about/';
 
-//   // на что можно ещё заменить?
+// на что можно ещё заменить?
 // if (!link.endsWith('/')) link += '/';
+// if (link[link.length - 1] !== '/') link += '/';
 
 // console.log(link);
 
@@ -125,14 +140,17 @@
 // - больше 24, выводи строку "Overdue"
 
 // const hours = 10;
-// let status;
+// let hourStatus;
 
-// в чём недостаток этого кода?
-// if (hours < 17) status = 'Pending';
-// if (hours >= 17 && hours <= 24) status = 'Expires';
-// if (hours > 24) status = 'Overdue';
+// if (hours < 17) {
+//   hourStatus = 'Pending';
+// } else if (hours >= 17 && hours <= 24) {
+//   hourStatus = 'Expires';
+// } else if (hours > 24) {
+//   hourStatus = 'Overdue';
+// }
 
-// console.log(status);
+// console.log(hourStatus);
 
 // ============================================================================
 // Example 9 - Дедлайн сдачи проекта (if...else)
@@ -143,10 +161,10 @@
 // - Eсли до дедлайна 2 дня - выведи строку "Послезавтра"
 // - Eсли до дедлайна 3+ дней - выведи строку "Дата в будущем"
 
-// const daysUntilDeadline = 5;
+// const daysUntilDeadline = 0;
 // let result;
 
-// в чём недостаток этого кода?
+// // в чём недостаток этого кода?
 // if (daysUntilDeadline === 0) result = 'Сегодня';
 // if (daysUntilDeadline === 1) result = 'Завтра';
 // if (daysUntilDeadline === 2) result = 'Послезавтра';
@@ -157,6 +175,8 @@
 // ============================================================================
 // Example 10 - Дедлайн сдачи проекта (switch)
 // Выполни рефакторинг кода задачи номер 9 используя switch.
+// const daysUntilDeadline = 0;
+
 // if (daysUntilDeadline === 0) {
 //   console.log('Сегодня');
 // } else if (daysUntilDeadline === 1) {
@@ -194,7 +214,7 @@
 // по возрастанию от min до max, но только если число кратное 5.
 
 // const max = 100;
-// const min = 20;
+// const min = 11;
 
 // for (let i = min; i <= max; i++) {
 //   if (i % 5 === 0) {
@@ -213,10 +233,13 @@
 // Пароль проверять так:
 // Если введён пароль "Я админ", то вывести строку "Здравствуйте!"
 // Иначе выводить строку "Неверный пароль"
+
 // const login = prompt('логин');
+// console.log('login:', login);
 
 // if (login === 'Админ') {
 //   const password = prompt('пароль');
+//   console.log('password:', password);
 
 //   if (password === 'Я админ') {
 //     console.log('Здравствуйте!');
@@ -230,3 +253,28 @@
 //     console.log('Я вас не знаю');
 //   }
 // }
+
+// ==== real life admin & password ====
+// function checkLoginAndPassword(login, password) {
+//   if (login === 'Админ') {
+//     if (password === 'Я админ') {
+//       console.log('Здравствуйте!');
+//     } else {
+//       console.log('Неверный пароль');
+//     }
+//   } else {
+//     if (!login || login === null) {
+//       console.log('Отменено');
+//     } else {
+//       console.log('Я вас не знаю');
+//     }
+//   }
+// }
+
+// const login = prompt('логин');
+// const password = prompt('пароль');
+
+// console.log('password:', password);
+// console.log('login:', login);
+
+// console.log(checkLoginAndPassword(login, password));
