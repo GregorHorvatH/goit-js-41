@@ -72,3 +72,12 @@ console.log('module 2.2');
 
 // fn1(1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 4);
 // fn2(1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 4);
+
+// ===== anonym function ======
+// const arr = [1, 2, 3];
+
+// const abrakadabra = function abrakadabra(number) {
+//   console.log(number);
+// };
+
+// arr.forEach(abrakadabra);
