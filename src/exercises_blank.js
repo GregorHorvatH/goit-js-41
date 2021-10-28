@@ -1,3 +1,5 @@
+// https://github.com/goitacademy/js-instructor-examples/blob/main/lesson-04.md
+
 // =========================================================
 // Example 1 - Индекс массы тела
 // Напиши функцию calcBMI(weight, height)
@@ -11,6 +13,15 @@
 
 // console.log('==== Example 1 ====');
 
+// // разделить вес в киллограммах на квадрат высоты человека в метрах
+// const calcBMI = (weight, height) => {
+//   const weightNum = parseFloat(weight.replace(',', '.'));
+//   const heightNum = parseFloat(height.replace(',', '.'));
+//   const weightIndex = (weightNum / Math.pow(heightNum, 2)).toFixed(1);
+
+//   return weightIndex;
+// };
+
 // const bmi = calcBMI('88,3', '1.75');
 // console.log(bmi); // 28.8
 
@@ -19,6 +30,13 @@
 // Напиши функцию min(a,b), которая возвращает меньшее из чисел a и b.
 
 // console.log('==== Example 2 ====');
+
+// // function min(a, b) {
+// //   // return a < b ? a : b;
+// //   return Math.min(a, b);
+// // }
+
+// const min = (a, b) => Math.min(a, b);
 
 // console.log(min(2, 5)); // 2
 // console.log(min(3, -1)); // -1
@@ -33,7 +51,15 @@
 
 // console.log('==== Example 3 ====');
 
-// function getRectArea(dimensions) {}
+// function getRectArea(dimensions) {
+//   // const arr = dimensions.split(' ');
+//   // const a = arr[0];
+//   // const b = arr[1];
+
+//   const [a, b] = dimensions.split(' ');
+
+//   return a * b;
+// }
 
 // console.log(getRectArea('8 11')); // 88
 
@@ -52,7 +78,11 @@
 
 // console.log('==== Example 4 ====');
 
-// function logItems(items) {}
+// function logItems(items) {
+//   items.forEach((value, idx) => {
+//     console.log(`${idx + 1} - ${value}`);
+//   });
+// }
 
 // logItems(['Mango', 'Poly', 'Ajax']);
 // logItems(['🍎', '🍇', '🍑', '🍌', '🍋']);
@@ -68,11 +98,22 @@
 
 // console.log('==== Example 5 ====');
 
-// function printContactsInfo(names, phones) {}
+// function printContactsInfo(names, phones) {
+//   const namesArr = names.split(',');
+//   const phonesArr = phones.split(',');
+
+//   // namesArr.forEach((name, i) => {
+//   //   console.log(`${name} - ${phonesArr[i]}`);
+//   // });
+
+//   for (let idx = 0; idx < namesArr.length; idx++) {
+//     console.log(`${namesArr[idx]} - ${phonesArr[idx]}`);
+//   }
+// }
 
 // printContactsInfo(
 //   'Jacob,William,Solomon,Artemis',
-//   '89001234567,89001112233,890055566377,890055566300'
+//   '89001234567,89001112233,890055566377,890055566300',
 // );
 
 // =========================================================
@@ -82,7 +123,19 @@
 
 // console.log('==== Example 6 ====');
 
-// function findLargestNumber(numbers) {}
+// // function findLargestNumber(numbers) {
+// //   let max = numbers[0];
+
+// //   for (const current of numbers) {
+// //     if (current > max) {
+// //       max = current;
+// //     }
+// //   }
+
+// //   return max;
+// // }
+
+// const findLargestNumber = (numbers) => Math.max(...numbers);
 
 // console.log(findLargestNumber([2, 17, 94, 1, 23, 37])); // 94
 // console.log(findLargestNumber([49, 4, 7, 83, 12])); // 83
@@ -96,7 +149,16 @@
 
 // console.log('==== Example 7 ====');
 
-// function calAverage() {}
+// function calAverage() {
+//   const numbers = Array.from(arguments);
+//   let sum = 0;
+
+//   for (const num of numbers) {
+//     sum += num;
+//   }
+
+//   return sum / numbers.length;
+// }
 
 // console.log(calAverage(1, 2, 3, 4)); // 2.5
 // console.log(calAverage(14, 8, 2)); // 8
@@ -110,16 +172,15 @@
 
 // console.log('==== Example 8 ====');
 
-// const hours = Math.floor(totalMinutes / 60);
-// const minutes = totalMinutes % 60;
-// console.log(hours);
-// console.log(minutes);
+// function formatTime(totalMinutes) {
+//   const hours = Math.floor(totalMinutes / 60); // 1
+//   const minutes = totalMinutes % 60;
 
-// const doubleDigitHours = String(hours).padStart(2, 0);
-// const doubleDigitMinutes = String(minutes).padStart(2, 0);
-// console.log(`${doubleDigitHours}:${doubleDigitMinutes}`);
+//   const doubleDigitHours = String(hours).padStart(2, 0);
+//   const doubleDigitMinutes = String(minutes).padStart(2, 0);
 
-// function formatTime(minutes) {}
+//   return `${doubleDigitHours}:${doubleDigitMinutes}`;
+// }
 
 // console.log(formatTime(70)); // "01:10"
 // console.log(formatTime(450)); // "07:30"
@@ -132,18 +193,49 @@
 // - removeCourse(name) - удаляет курс из коллекции
 // - updateCourse(oldName, newName) - изменяет имя на новое
 
-// console.log('==== Example 9 ====');
-// const courses = ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL'];
+console.log('==== Example 9 ====');
+const courses = ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL'];
 
-// // ==== tests ====
-// addCourse('Express');
-// console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
-// addCourse('CSS'); // 'У вас уже есть такой курс'
+const addCourse = (course) => {
+  if (courses.includes(course)) {
+    console.log('У вас уже есть такой курс');
+    return;
+  }
 
-// removeCourse('React');
-// console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'Express']
-// removeCourse('Vue'); // 'Курс с таким имененем не найден'
+  courses.push(course);
+};
 
-// updateCourse('Express', 'NestJS');
-// console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
-// updateCourse('Express', 'NestJS'); // 'Курс с таким имененем не найден'
+const removeCourse = function (course) {
+  const idx = courses.indexOf(course);
+
+  if (idx === -1) {
+    console.log('Курс с таким имененем не найден');
+    return;
+  }
+
+  courses.splice(idx, 1);
+};
+
+function updateCourse(oldCourse, newCourse) {
+  const idx = courses.indexOf(oldCourse);
+
+  if (idx === -1) {
+    console.log('Курс с таким имененем не найден');
+    return;
+  }
+
+  courses.splice(idx, 1, newCourse);
+}
+
+// ==== tests ====
+addCourse('Express');
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
+addCourse('CSS'); // 'У вас уже есть такой курс'
+
+removeCourse('React');
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'Express']
+removeCourse('Vue'); // 'Курс с таким имененем не найден'
+
+updateCourse('Express', 'NestJS');
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
+updateCourse('Express', 'NestJS'); // 'Курс с таким имененем не найден'
