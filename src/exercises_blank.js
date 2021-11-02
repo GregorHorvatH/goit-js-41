@@ -17,6 +17,18 @@
 //   hobby: 'html',
 //   premium: true,
 // };
+// user.mood = 'happy'; // добавляет поле mood со значением 'happy'
+// user.hobby = 'skydiving'; // заменяет значение hobby на 'skydiving'
+
+// const keys = Object.keys(user);
+
+// for (const key of keys) {
+//   console.log(`${key}:${user[key]}`);
+// }
+
+// console.log(Object.keys(user));
+// console.log(Object.values(user));
+// console.log(Object.entries(user));
 
 // =========================================================
 // Example 2 - метод Object.values()
@@ -32,6 +44,15 @@
 //   Ann: 160,
 //   Pete: 130,
 // };
+// let sum = 0;
+// const values = Object.values(salaries);
+
+// for (const value of values) {
+//   sum += value;
+// }
+
+// console.log(values);
+// console.log(sum);
 
 // =========================================================
 // Example 3 - Массив объектов
@@ -47,6 +68,23 @@
 //   { name: 'Сапфир', price: 400, quantity: 7 },
 //   { name: 'Щебень', price: 200, quantity: 2 },
 // ];
+
+// function calcTotalPrice(stones, stoneName) {
+//   for (const stone of stones) {
+//     if (stone.name === stoneName) {
+//       return stone.price * stone.quantity;
+//     }
+//   }
+
+//   return 'stone not found';
+// }
+
+// // positive test
+// console.log(calcTotalPrice(stones, 'Щебень')); // 400
+// console.log(calcTotalPrice(stones, 'Сапфир')); // 2800
+
+// // negative test
+// console.log(calcTotalPrice(stones, 'wertyui')); // stone not found
 
 // =========================================================
 // Example 4 - Комплексные задачи
@@ -80,7 +118,13 @@
 //    * Метод создает и возвращает объект транзакции.
 //    * Принимает сумму и тип транзакции.
 //    */
-//   createTransaction(amount, type) {},
+//   createTransaction(amount, type) {
+//     return {
+//       id: this.transactions.length,
+//       amount,
+//       type,
+//     };
+//   },
 
 //   /*
 //    * Метод отвечающий за добавление суммы к балансу.
@@ -88,7 +132,12 @@
 //    * Вызывает createTransaction для создания объекта транзакции
 //    * после чего добавляет его в историю транзакций
 //    */
-//   deposit(amount) {},
+//   deposit(amount) {
+//     this.balance += amount;
+//     this.transactions.unshift(
+//       this.createTransaction(amount, Transaction.DEPOSIT),
+//     );
+//   },
 
 //   /*
 //    * Метод отвечающий за снятие суммы с баланса.
@@ -99,21 +148,163 @@
 //    * Если amount больше чем текущий баланс, выводи сообщение
 //    * о том, что снятие такой суммы не возможно, недостаточно средств.
 //    */
-//   withdraw(amount) {},
+//   withdraw(amount) {
+//     if (amount > this.balance) {
+//       console.log('снятие такой суммы не возможно, недостаточно средств');
+//       return;
+//     }
+
+//     this.balance -= amount;
+//     this.transactions.unshift(
+//       this.createTransaction(amount, Transaction.WITHDRAW),
+//     );
+//   },
 
 //   /*
 //    * Метод возвращает текущий баланс
 //    */
-//   getBalance() {},
+//   getBalance() {
+//     return this.balance;
+//   },
 
 //   /*
 //    * Метод ищет и возвращает объект транзации по id
 //    */
-//   getTransactionDetails(id) {},
+//   getTransactionDetails(id) {
+//     for (const transaction of this.transactions) {
+//       if (transaction.id === id) {
+//         return transaction;
+//       }
+//     }
+//   },
 
 //   /*
 //    * Метод возвращает количество средств
 //    * определенного типа транзакции из всей истории транзакций
 //    */
-//   getTransactionTotal(type) {},
+//   getTransactionTotal(type) {
+//     let sum = 0;
+
+//     for (const transaction of this.transactions) {
+//       if (transaction.type === type) {
+//         sum += transaction.amount;
+//       }
+//     }
+
+//     return sum;
+//   },
 // };
+
+// // ====== tests =======
+// console.log(account.getBalance());
+
+// account.deposit(100); // 0
+// account.deposit(100); // 1
+// account.deposit(800); // 2
+// console.log(account.getBalance());
+// console.log(account.transactions);
+
+// account.withdraw(200); // 800
+// console.log(account.getBalance());
+
+// account.withdraw(500); // 300
+// console.log(account.getBalance());
+
+// account.withdraw(300); // 0
+// console.log(account.getBalance());
+
+// account.withdraw(300); // 0
+// console.log(account.getBalance());
+// console.log(account.transactions);
+
+// console.log(account.getTransactionDetails(3));
+
+// account.deposit(1000); // 1000
+// console.log(account.transactions);
+
+// console.log(account.getTransactionTotal(Transaction.DEPOSIT)); // 2000
+// console.log(account.getTransactionTotal(Transaction.WITHDRAW)); // 1000
+
+// ====== циклы ======
+// const arr = [1, 2, 34];
+
+// // old school
+// for (let i = 0; i < arr.length; i++) {
+//   console.log(arr[i]);
+// }
+
+// // old school 2
+// for (const item of arr) {
+//   console.log(item);
+// }
+
+// // modern
+// arr.forEach((item) => console.log(item));
+
+// const showItem1 = (item) => {
+//   console.log(item);
+// };
+// arr.forEach(showItem1);
+
+// function showItem2(item) {
+//   console.log(item);
+// }
+// arr.forEach(showItem2);
+
+// ======= this not this )))
+// Имеется в виду в конструкторе
+// может правильнее через this ?
+
+// const name = 'Генри Сибола';
+// const age = 25;
+
+// const user = {
+//   name, // name: name
+//   age, // age: age
+// };
+
+// ====== classes hasOwnProperties =======
+// class Human {
+//   constructor(name) {
+//     this.name;
+//   }
+
+//   sayHello() {}
+// }
+
+// const bobby = new Human('Bobby');
+// bobby.age = 15;
+
+// console.dir(bobby);
+// console.log(bobby.hasOwnProperty('age'));
+// console.log(bobby.hasOwnProperty('sayHello'));
+
+class Car {
+  constructor(model) {
+    this.model = model;
+    this.speed = 0;
+    this.isOn = false;
+  }
+
+  acceleration(speed) {
+    this.speed = speed;
+  }
+}
+
+class ColoredCar extends Car {
+  constructor(model, color) {
+    super(model);
+    this.color = color;
+  }
+}
+
+const bmw = new Car('X5');
+const zhiga = new Car('2109');
+const kopeyka = new Car('2101');
+
+console.log(bmw);
+console.log(zhiga);
+console.log(kopeyka);
+
+const redKopeyka = new ColoredCar('2101', 'red');
+console.log(redKopeyka);
