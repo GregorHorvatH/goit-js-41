@@ -7,7 +7,7 @@
 // вместо набора независимых аргументов.
 
 // console.log('==== Example 1 ====');
-// function calcBMI(weight, height) {
+// function calcBMI({ weight, height }) {
 //   const numericWeight = Number(weight.replace(',', '.'));
 //   const numericHeight = Number(height.replace(',', '.'));
 //   return Number((numericWeight / numericHeight ** 2).toFixed(1));
@@ -45,7 +45,7 @@
 // вместо набора независимых аргументов.
 
 // console.log('==== Example 2 ====');
-// function printContactsInfo(names, phones) {
+// function printContactsInfo({ names, phones }) {
 //   const nameList = names.split(',');
 //   const phoneList = phones.split(',');
 //   for (let i = 0; i < nameList.length; i += 1) {
@@ -72,7 +72,10 @@
 // вместо набора независимых аргументов.
 
 // console.log('==== Example 3 ====');
-// function getBotReport(companyName, repairBots, defenceBots) {
+// function getBotReport({
+//   companyName,
+//   bots: { repair: repairBots, defence: defenceBots },
+// }) {
 //   return `${companyName} has ${repairBots + defenceBots} bots in stock`;
 // }
 
@@ -99,9 +102,15 @@
 // на складе любой компании.
 
 // console.log('==== Example 4 ====');
-// Решениеs
+// // Решениеs;
 // function getStockReport({ companyName, stock }) {
-//   // ...
+//   const values = Object.values(stock);
+//   let total = 0;
+
+//   for (const value of values) {
+//     total += value;
+//   }
+
 //   return `${companyName} has ${total} items in stock`;
 // }
 
@@ -135,10 +144,13 @@
 // если в partialContact нет такого свойства.
 
 // console.log('==== Example 5 ====');
-// Решение
+// // Решение;
 // function createContact(partialContact) {
 //   return {
-//     // ...
+//     id: generateId(),
+//     createdAt: Date.now(),
+//     ...partialContact,
+//     list: partialContact.list || 'default',
 //   };
 // }
 
@@ -153,6 +165,7 @@
 //   createContact({
 //     name: 'Poly',
 //     email: 'poly@hotmail.com',
+//     list: undefined,
 //   }),
 // );
 
@@ -167,29 +180,32 @@
 // со свойством fullName, вместо firstName и lastName.
 
 // console.log('==== Example 6 ====');
-// Решение
-// function transformUsername() {
+// // Решение
+// function transformUsername({ firstName, lastName, ...user }) {
 //   return {
-//     // ...
+//     fullName: `${firstName} ${lastName}`,
+//     ...user,
 //   };
 // }
 
 // console.log(
 //   transformUsername({
+//     total: 55,
+//     friendCount: 40,
 //     id: 1,
-//     firstName: 'Jacob',
 //     lastName: 'Mercer',
 //     email: 'j.mercer@mail.com',
-//     friendCount: 40,
+//     firstName: 'Jacob',
 //   }),
 // );
 
 // console.log(
 //   transformUsername({
-//     id: 2,
+//     email: 'a.cross@hotmail.com',
 //     firstName: 'Adrian',
 //     lastName: 'Cross',
-//     email: 'a.cross@hotmail.com',
+//     total: 22,
+//     id: 2,
 //     friendCount: 20,
 //   }),
 // );
