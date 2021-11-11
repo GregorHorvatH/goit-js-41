@@ -1,4 +1,6 @@
-export default [
+export const somethingElse = 'afgafasdfgsg';
+
+export const cars = [
   {
     make: 'Honda',
     model: 'CR-V',
