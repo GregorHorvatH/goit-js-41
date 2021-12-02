@@ -5,15 +5,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-  </head>
-  <body>
-    <h2>JS Module 1.1</h2>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, unde at
-      fuga possimus illo labore quaerat facere saepe corrupti pariatur. Placeat
-      nam repudiandae unde repellat hic. Sed repellat commodi delectus.
-    </p>
 
-    <script src="./index.js" type="module"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <!-- <h2>JS Module 6.2</h2>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, unde at
+    fuga possimus illo labore quaerat facere saepe corrupti pariatur. Placeat
+    nam repudiandae unde repellat hic. Sed repellat commodi delectus.
+  </p>
+
+  <button id="decrement">-</button>
+  <button id="increment">+</button>
+
+  <script src="./index.js" type="module"></script> -->
+
+  <body class="white">
+    <h1>Module 6.2</h1>
+
+    <ul class="context-menu">
+      <li data-color="white">White</li>
+      <li data-color="red">Red</li>
+      <li data-color="green">Green</li>
+      <li data-color="blue">Blue</li>
+      <li data-color="dark">Dark</li>
+      <hr />
+      <li>
+        <label id="lorem-count">
+          <span>Lorems x</span>
+          <input type="number" value="1" min="0" />
+        </label>
+      </li>
+      <hr />
+      <li>
+        <label id="range">
+          <span>Padding</span>
+          <input type="range" min="1" max="50" value="10" />
+          <span>10px</span>
+        </label>
+      </li>
+    </ul>
+
+    <div id="lorem-list">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim nihil,
+        distinctio accusantium earum tempore exercitationem nobis molestias
+        laboriosam quia officiis? Provident rerum, explicabo laborum nemo sequi
+        temporibus blanditiis corporis culpa.
+      </p>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"
+      integrity="sha512-/seDHxVfh1NvFUscAj8GsHQVZJvr2jjAoYsNL7As2FCaFHUHYIarl3sRCvVlFgyouVNiRgHIebyLKjpgd1SLDw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./index.js"></script>
   </body>
 </html>

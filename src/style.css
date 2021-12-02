@@ -1,0 +1,61 @@
+body {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  padding: 10px;
+  overflow: hidden;
+  top: 0;
+  bottom: 0;
+}
+#lorem-list {
+  overflow: auto;
+  border: 1px solid lightgray;
+}
+.context-menu {
+  background-color: #fff;
+  color: #000;
+  position: absolute;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 100px;
+  z-index: 1;
+  display: none;
+}
+.context-menu li {
+  padding: 5px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.context-menu li:hover {
+  background-color: #eee;
+}
+.show {
+  display: block;
+}
+.white {
+  background-color: #fff;
+  color: #000;
+}
+.red {
+  background-color: rgb(255, 208, 208);
+  color: #000;
+}
+.green {
+  background-color: rgb(221, 255, 221);
+  color: #000;
+}
+.blue {
+  background-color: rgb(212, 212, 250);
+  color: #000;
+}
+.dark {
+  background-color: rgb(37, 37, 37);
+  color: #fff;
+}
+hr {
+  margin: 0;
+  padding: 0;
+}
