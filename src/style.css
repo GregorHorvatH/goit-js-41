@@ -28,6 +28,7 @@ body {
   padding: 5px 15px;
   cursor: pointer;
   border-radius: 5px;
+  margin: 10px;
 }
 .context-menu li:hover {
   background-color: #eee;

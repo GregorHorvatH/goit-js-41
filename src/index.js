@@ -1,37 +1,15 @@
-console.log('module 6.2');
+console.log('module 7.1');
 
-// ===== question =====
-// let value = 0;
+const instance = basicLightbox.create(`
+    <div class="modal">
+        <p>
+            Your first lightbox with just a few lines of code.
+            Yes, it's really that simple.
+        </p>
+    </div>
+`);
 
-// const refs = {
-//   increment: document.getElementById('increment'),
-//   decrement: document.getElementById('decrement'),
-// };
-
-// // +1, -1
-// const changeValue = (step) => {
-//   value = value + step;
-
-//   console.log(value);
-// };
-
-// refs.decrement.addEventListener('click', () => changeValue(-1));
-// refs.increment.addEventListener('click', () => changeValue(+1));
-
-// ===== destructuring =====
-// const obj = {
-//   name: 'Bobby',
-//   innerObj: {
-//     age: 15,
-//     sdfgsg: '3543545',
-//   },
-// };
-
-// const fn = ({ name, innerObj: { age, sdfgsg } }) => {
-//   console.log(name, age, sdfgsg);
-// };
-
-// fn(obj);
+instance.show();
 
 // ========= design MENU ========
 // 1 - Left Click - show menu/hide menu (onBodyLeftClick)
@@ -40,14 +18,8 @@ console.log('module 6.2');
 // 4 - Input range - change body padding (onRangeChange)
 // 5 - Input value - render Lorem's (onLoremCountChange)
 // ======================================================
-const loremTemplate = `<p>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim nihil,
-distinctio accusantium earum tempore exercitationem nobis molestias
-laboriosam quia officiis? Provident rerum, explicabo laborum nemo sequi
-temporibus blanditiis corporis culpa.
-</p>`;
-
 const refs = {
+  buttonWrapper: document.querySelector('#buton-wrapper'),
   menu: document.querySelector('ul.context-menu'),
   colorWhite: document.querySelector('li[data-color="white"]'),
   colorRed: document.querySelector('li[data-color="red"]'),
@@ -61,18 +33,22 @@ const refs = {
 };
 
 const onDocumentLeftClick = (e) => {
-  refs.menu.classList.toggle('show');
+  refs.menu.classList.remove('show');
 };
 
 const onDocumentRightClick = (e) => {
   e.preventDefault();
 
-  refs.menu.classList.toggle('show');
+  refs.menu.classList.add('show');
   refs.menu.style.left = `${e.x - 20}px`;
   refs.menu.style.top = `${e.y - 20}px`;
 };
 
-const onColorSelect = (e) => (document.body.className = e.target.dataset.color);
+const onColorSelect = (e) => {
+  if (e.target === e.currentTarget) return;
+
+  document.body.className = e.target.dataset.color;
+};
 
 const onRangeChange = (e) => {
   const { value } = e.target;
@@ -97,14 +73,68 @@ const onCountChange = (e) => {
 };
 
 document.addEventListener('click', onDocumentLeftClick);
+// document.addEventListener('contextmenu', onDocumentRightClick, { once: true });
 document.addEventListener('contextmenu', onDocumentRightClick);
 
-refs.colorWhite.addEventListener('click', onColorSelect);
-refs.colorRed.addEventListener('click', onColorSelect);
-refs.colorGreen.addEventListener('click', onColorSelect);
-refs.colorBlue.addEventListener('click', onColorSelect);
-refs.colorDark.addEventListener('click', onColorSelect);
+refs.buttonWrapper.addEventListener('click', onColorSelect);
+
+// refs.colorWhite.addEventListener('click', onColorSelect);
+// refs.colorRed.addEventListener('click', onColorSelect);
+// refs.colorGreen.addEventListener('click', onColorSelect);
+// refs.colorBlue.addEventListener('click', onColorSelect);
+// refs.colorDark.addEventListener('click', onColorSelect);
+
 refs.rangeInput.addEventListener('input', onRangeChange);
 
 refs.loremCount.addEventListener('click', onCountClick);
 refs.loremCount.addEventListener('input', onCountChange);
+
+// ====== question ======
+// function onParentClick(event) {
+//   console.log(`onParentClick -> event.target`, event.target);
+// }
+
+// function getRandomHex() {
+//   return Math.round(Math.random() * 100000)
+//     .toString(16)
+//     .padStart(5, '0');
+// }
+
+// console.log(getRandomHex());
+// console.log(getRandomHex());
+// console.log(getRandomHex());
+// console.log(getRandomHex());
+// console.log(getRandomHex());
+// console.log(getRandomHex());
+
+// 3 system
+// 0 - 000
+// 1 - 001
+// 2 - 002
+// 3 - 010
+// 4 - 011
+// 5 - 012
+// 6 - 020
+// 7 - 021
+// 8 - 022
+// 9 - 100
+
+// ========= question 2 ==========
+// const e = {
+//   target: {
+//     value: 5,
+//   },
+// };
+
+// const { value } = e.target;
+
+// console.log('value:', value);
+
+// ======================
+// new SimpleLightbox(".gallery a", {
+//   captionsData: "alt",
+//   captionDelay: 250,
+//   captionType: "alt",
+//   scrollZoomFactor: 0.5,
+//   captionPosition: "bottom",
+// });
