@@ -5,14 +5,147 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.js"></script>
+
+    <style>
+      .modal {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+      }
+    </style>
   </head>
   <body>
-    <h2>JS Module 1.1</h2>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, unde at
-      fuga possimus illo labore quaerat facere saepe corrupti pariatur. Placeat
-      nam repudiandae unde repellat hic. Sed repellat commodi delectus.
-    </p>
+    <h2>JS Module 7.2</h2>
+
+    <button id="button-1">Image 1</button>
+    <button id="button-2">Image 2</button>
+
+    <h4>Scroll: <span class="title">0</span></h4>
+
+    <!-- <input type="text" id="input" autocomplete="off" /> -->
+    <progress class="progress" value="0" max="100"></progress>
+
+    <div class="wrapper">
+      <div class="sections">
+        <section class="section" data-id="section-1">
+          <h3>Section 1</h3>
+          <p>
+            <img
+              src="https://picsum.photos/id/237/100/70"
+              class="leftimg"
+              alt="image"
+            />
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet,
+            recusandae porro molestias sequi ullam esse. Impedit nam velit qui
+            quasi doloribus accusantium dolorum dolore sit! Corrupti non eum
+            quasi sint! Lorem ipsum dolor, sit amet consectetur adipisicing
+            elit. Suscipit neque deleniti voluptatem soluta veniam hic corporis
+            deserunt accusantium, cum illum ipsam ullam tenetur quibusdam ab
+            obcaecati sint voluptas rerum quisquam. Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Eum explicabo atque tempora fuga!
+            Consequuntur illum debitis culpa doloribus quasi non voluptas
+            ratione odio atque, mollitia, nisi ipsam quibusdam aliquam laborum.
+          </p>
+        </section>
+        <hr />
+
+        <section class="section" data-id="section-2">
+          <h3>Section 2</h3>
+          <p>
+            <img
+              src="https://picsum.photos/id/238/100/70"
+              class="leftimg"
+              alt="image"
+            />
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet,
+            recusandae porro molestias sequi ullam esse. Impedit nam velit qui
+            quasi doloribus accusantium dolorum dolore sit! Corrupti non eum
+            quasi sint! Lorem ipsum dolor, sit amet consectetur adipisicing
+            elit. Suscipit neque deleniti voluptatem soluta veniam hic corporis
+            deserunt accusantium, cum illum ipsam ullam tenetur quibusdam ab
+            obcaecati sint voluptas rerum quisquam. Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Eum explicabo atque tempora fuga!
+            Consequuntur illum debitis culpa doloribus quasi non voluptas
+            ratione odio atque, mollitia, nisi ipsam quibusdam aliquam laborum.
+          </p>
+        </section>
+        <hr />
+
+        <section class="section" data-id="section-3">
+          <h3>Section 3</h3>
+          <p>
+            <img
+              src="https://picsum.photos/id/239/100/70"
+              class="leftimg"
+              alt="image"
+            />
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet,
+            recusandae porro molestias sequi ullam esse. Impedit nam velit qui
+            quasi doloribus accusantium dolorum dolore sit! Corrupti non eum
+            quasi sint! Lorem ipsum dolor, sit amet consectetur adipisicing
+            elit. Suscipit neque deleniti voluptatem soluta veniam hic corporis
+            deserunt accusantium, cum illum ipsam ullam tenetur quibusdam ab
+            obcaecati sint voluptas rerum quisquam. Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Eum explicabo atque tempora fuga!
+            Consequuntur illum debitis culpa doloribus quasi non voluptas
+            ratione odio atque, mollitia, nisi ipsam quibusdam aliquam laborum.
+          </p>
+        </section>
+        <hr />
+
+        <section class="section" data-id="section-4">
+          <h3>Section 4</h3>
+          <p>
+            <img
+              src="https://picsum.photos/id/240/100/70"
+              class="leftimg"
+              alt="image"
+            />
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet,
+            recusandae porro molestias sequi ullam esse. Impedit nam velit qui
+            quasi doloribus accusantium dolorum dolore sit! Corrupti non eum
+            quasi sint! Lorem ipsum dolor, sit amet consectetur adipisicing
+            elit. Suscipit neque deleniti voluptatem soluta veniam hic corporis
+            deserunt accusantium, cum illum ipsam ullam tenetur quibusdam ab
+            obcaecati sint voluptas rerum quisquam. Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Eum explicabo atque tempora fuga!
+            Consequuntur illum debitis culpa doloribus quasi non voluptas
+            ratione odio atque, mollitia, nisi ipsam quibusdam aliquam laborum.
+          </p>
+        </section>
+        <hr />
+
+        <section class="section" data-id="section-5">
+          <h3>Section 5</h3>
+          <p>
+            <img
+              src="https://picsum.photos/id/241/100/70"
+              class="leftimg"
+              alt="image"
+            />
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet,
+            recusandae porro molestias sequi ullam esse. Impedit nam velit qui
+            quasi doloribus accusantium dolorum dolore sit! Corrupti non eum
+            quasi sint! Lorem ipsum dolor, sit amet consectetur adipisicing
+            elit. Suscipit neque deleniti voluptatem soluta veniam hic corporis
+            deserunt accusantium, cum illum ipsam ullam tenetur quibusdam ab
+            obcaecati sint voluptas rerum quisquam. Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Eum explicabo atque tempora fuga!
+            Consequuntur illum debitis culpa doloribus quasi non voluptas
+            ratione odio atque, mollitia, nisi ipsam quibusdam aliquam laborum.
+          </p>
+        </section>
+        <hr />
+      </div>
+    </div>
 
     <script src="./index.js" type="module"></script>
   </body>
