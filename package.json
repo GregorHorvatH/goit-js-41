@@ -1,7 +1,7 @@
 {
-  "name": "js-group-24",
+  "name": "goit-js-41",
   "version": "1.0.0",
-  "description": "# Перед началом работы",
+  "description": "goit-js-41",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --env.mode development",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GregorHorvatH/js-group-24.git"
+    "url": "git+https://github.com/GregorHorvatH/goit-js-41.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/GregorHorvatH/js-group-24/issues"
+    "url": "https://github.com/GregorHorvatH/goit-js-41/issues"
   },
-  "homepage": "https://github.com/GregorHorvatH/js-group-24#readme",
+  "homepage": "https://github.com/GregorHorvatH/goit-js-41",
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
