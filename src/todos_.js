@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
+import './style.css';
 
+// ===== todos =====
 const itemTemplate = ({ id, label, checked }) =>
   `<li data-id=${id} class="list-group-item list-group-item-action">
     <label>
@@ -10,15 +12,14 @@ const itemTemplate = ({ id, label, checked }) =>
   </li>`;
 
 const refs = {
+  listGroup: document.querySelector('.list-group'),
   form: document.querySelector('form'),
-  listGroup: document.querySelector('ul.list-group'),
-  printButtton: document.querySelector('.btn.btn-success'),
+  print: document.querySelector('.btn.btn-success'),
 };
 let todos = [
-  { id: '1', label: 'Cras justo odio', checked: true },
-  { id: '2', label: 'Cras justo odio', checked: false },
-  { id: '3', label: 'Cras justo odio', checked: true },
-  { id: '4', label: 'Cras justo odio', checked: false },
+  { id: 1, label: 'Cras justo odio', checked: true },
+  { id: 2, label: 'Dapibus ac facilisis in', checked: false },
+  { id: 3, label: 'Morbi leo risus', checked: false },
 ];
 
 function render() {
@@ -28,18 +29,18 @@ function render() {
   refs.listGroup.insertAdjacentHTML('beforeend', items.join(''));
 }
 
-function deleteItem(id) {
-  todos = todos.filter((todo) => todo.id !== id);
+function deleteTodo(id) {
+  todos = todos.filter((todo) => todo.id != id);
 }
 
-function toggleItem(id) {
+function toggleTodo(id) {
   todos = todos.map((todo) =>
-    todo.id === id
+    todo.id == id
       ? {
           ...todo,
           checked: !todo.checked,
         }
-      : todo,
+      : todo
   );
 }
 
@@ -48,26 +49,23 @@ function handleClick(e) {
 
   switch (e.target.nodeName) {
     case 'BUTTON':
-      deleteItem(id);
+      deleteTodo(id);
       break;
 
     case 'INPUT':
+    case 'SPAN':
     case 'LABEL':
-      toggleItem(id);
+      toggleTodo(id);
       break;
   }
 
   render();
 }
 
-function print() {
-  console.table(todos);
-}
-
 function handleSubmit(e) {
-  e.preventDefault();
-
   const { value } = e.target.elements.text;
+
+  e.preventDefault();
 
   if (!value) return;
 
@@ -82,8 +80,12 @@ function handleSubmit(e) {
   render();
 }
 
+function print() {
+  console.table(todos);
+}
+
 refs.listGroup.addEventListener('click', handleClick);
-refs.printButtton.addEventListener('click', print);
 refs.form.addEventListener('submit', handleSubmit);
+refs.print.addEventListener('click', print);
 
 render();

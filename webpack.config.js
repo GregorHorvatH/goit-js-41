@@ -58,5 +58,5 @@ module.exports = (env) =>
         new WebpackBar(),
       ],
     },
-    loadModeConfig(env)
+    loadModeConfig(env),
   );
