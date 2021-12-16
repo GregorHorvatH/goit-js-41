@@ -11,3 +11,9 @@ li.list-group-item {
   display: flex;
   align-items: center;
 }
+
+.delete-modal {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+}

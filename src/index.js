@@ -1,66 +1,26 @@
-// console.log('module 8.1');
+console.log('module 8.1');
 
-// import 'bootstrap';
-// import 'bootstrap/scss/bootstrap.scss';
-// import './style.css';
+import 'bootstrap';
+import toastr from 'toastr';
 
-// import './todos';
+import 'bootstrap/scss/bootstrap.scss';
+import 'toastr/build/toastr.min.css';
+import 'basiclightbox/dist/basicLightbox.min.css';
+import './style.css';
 
-// import Joi from 'joi';
+import './todos';
 
-// const schema = Joi.object({
-//   username: Joi.string()
-//     .alphanum()
-//     .min(3)
-//     .max(30)
-//     .required(),
+// ===== localstorage =====
+// localStorage.setItem('test', 'sdfgvsdfgd');
+// localStorage.setItem('test', JSON.stringify({ name: 'Bobby' }));
+// let obj;
 
-//   password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+// try {
+//   obj = JSON.parse(localStorage.getItem('test'));
+// } catch (e) {
+//   obj = {};
+//   console.log("can't read the local storage");
+// }
 
-//   repeat_password: Joi.ref('password'),
-
-//   access_token: [Joi.string(), Joi.number()],
-
-//   birth_year: Joi.number()
-//     .integer()
-//     .min(1900)
-//     .max(2013),
-
-//   email: Joi.string().email({
-//     minDomainSegments: 2,
-//     tlds: { allow: ['com', 'net'] },
-//   }),
-// })
-//   .with('username', 'birth_year')
-//   .xor('password', 'access_token')
-//   .with('password', 'repeat_password');
-
-// const result = schema.validate({ username: 'abc', birth_year: 1994 });
-
-// console.log('result:', result);
-
-// import * as basicLightbox from 'basiclightbox';
-// import 'basiclightbox/dist/basicLightbox.min.css';
-
-// const instance = basicLightbox.create(`
-// 	<h1>Dynamic Content</h1>
-// 	<p>You can set the content of the lightbox with JS.</p>
-// `);
-
-// instance.show();
-
-import Player from '@vimeo/player';
-
-const options = {
-  id: 59777392,
-  width: 640,
-  loop: true,
-};
-
-const player = new Player('made-in-ny', options);
-
-player.setVolume(0);
-
-player.on('play', function() {
-  console.log('played the video!');
-});
+// const { name = 'Nemo' } = obj;
+// console.log('My name is', name);
