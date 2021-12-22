@@ -17,3 +17,9 @@ li.list-group-item {
   border-radius: 5px;
   padding: 20px;
 }
+
+.clock {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 10px;
+}

@@ -1,5 +1,3 @@
-import './style.css';
-
 const template = ({ title = '' } = {}) => `<div class="clock">
   <h3>${title}</h3>
   <p class="date"></p>
