@@ -47,12 +47,7 @@ const refs = {
   modalCancelButton: deleteModal.element().querySelector('.btn-light'),
   modalDeleteButton: deleteModal.element().querySelector('.btn-danger'),
 };
-let todos = [
-  // { id: '1', label: 'Cras justo odio', checked: true },
-  // { id: '2', label: 'Cras justo odio', checked: false },
-  // { id: '3', label: 'Cras justo odio', checked: true },
-  // { id: '4', label: 'Cras justo odio', checked: false },
-];
+let todos = [];
 let currentId;
 
 function handleModalCancel() {
@@ -89,7 +84,7 @@ function toggleItem(id) {
           ...todo,
           checked: !todo.checked,
         }
-      : todo,
+      : todo
   );
 }
 
@@ -134,15 +129,18 @@ function handleSubmit(e) {
   render();
 }
 
-function onLoad() {
-  todos = loadData('todos');
-
+function addEventListeners() {
   refs.listGroup.addEventListener('click', handleClick);
   refs.printButtton.addEventListener('click', print);
   refs.form.addEventListener('submit', handleSubmit);
   refs.modalCancelButton.addEventListener('click', handleModalCancel);
   refs.modalDeleteButton.addEventListener('click', handleModalDelete);
+}
 
+function onLoad() {
+  todos = loadData('todos');
+
+  addEventListeners();
   render();
 }
 
