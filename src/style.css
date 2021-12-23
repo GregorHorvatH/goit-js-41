@@ -17,3 +17,13 @@ li.list-group-item {
   border-radius: 5px;
   padding: 20px;
 }
+
+.loading-modal {
+  background-color: #fff;
+  padding: 10px 100px;
+  border-radius: 5px;
+}
+
+.basicLightbox {
+  background-color: rgba(0, 0, 0, 0.1);
+}

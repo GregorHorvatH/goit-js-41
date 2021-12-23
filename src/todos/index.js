@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import toastr from 'toastr';
 import * as basicLightbox from 'basiclightbox';
-import { loadData, saveData } from './api';
+import { fetchTodos, saveData } from './api';
 
 const deleteModal = basicLightbox.create(`
 <div class="delete-modal">
@@ -11,6 +11,15 @@ const deleteModal = basicLightbox.create(`
   <button class="btn btn-danger">Delete</button>
 </div>
 `);
+
+const loadingModal = basicLightbox.create(
+  `
+<div class="loading-modal">
+  <p>please wait...</p>
+</div>
+`,
+  { closable: false },
+);
 
 toastr.options = {
   closeButton: true,
@@ -42,6 +51,7 @@ const itemTemplate = ({ id, label, checked }) =>
 const refs = {
   form: document.querySelector('form'),
   listGroup: document.querySelector('ul.list-group'),
+  addButtton: document.querySelector('.btn.btn-primary'),
   printButtton: document.querySelector('.btn.btn-success'),
   modalText: deleteModal.element().querySelector('#text'),
   modalCancelButton: deleteModal.element().querySelector('.btn-light'),
@@ -56,9 +66,17 @@ function handleModalCancel() {
 
 function handleModalDelete() {
   todos = todos.filter((todo) => todo.id !== currentId);
-  toastr.warning('todo is successfully deleted');
   deleteModal.close();
-  render();
+
+  loadingModal.show();
+  saveData('todos', todos)
+    .then(() => {
+      toastr.warning('todo is successfully deleted');
+    })
+    .finally(() => {
+      render();
+      loadingModal.close();
+    });
 }
 
 function render() {
@@ -66,7 +84,6 @@ function render() {
 
   refs.listGroup.innerHTML = '';
   refs.listGroup.insertAdjacentHTML('beforeend', items.join(''));
-  saveData('todos', todos);
 }
 
 function deleteItem(id) {
@@ -84,8 +101,14 @@ function toggleItem(id) {
           ...todo,
           checked: !todo.checked,
         }
-      : todo
+      : todo,
   );
+
+  loadingModal.show();
+  saveData('todos', todos).finally(() => {
+    render();
+    loadingModal.close();
+  });
 }
 
 function handleClick(e) {
@@ -109,13 +132,7 @@ function print() {
   console.table(todos);
 }
 
-function handleSubmit(e) {
-  e.preventDefault();
-
-  const { value } = e.target.elements.text;
-
-  if (!value) return;
-
+function addTodo(value) {
   const newTodo = {
     id: uuidv4(),
     label: value,
@@ -123,10 +140,22 @@ function handleSubmit(e) {
   };
 
   todos.push(newTodo);
-  refs.form.reset();
   toastr.success('todo is successfully created');
+  saveData('todos', todos);
 
-  render();
+  return Promise.resolve();
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+
+  const { value } = e.target.elements.text;
+
+  if (!value) return;
+
+  addTodo(value)
+    .then(() => refs.form.reset())
+    .then(render);
 }
 
 function addEventListeners() {
@@ -137,14 +166,23 @@ function addEventListeners() {
   refs.modalDeleteButton.addEventListener('click', handleModalDelete);
 }
 
-function onLoad() {
-  todos = loadData('todos');
-
-  addEventListeners();
-  render();
+function start() {
+  loadingModal.show();
+  fetchTodos('todos')
+    .then((data) => {
+      todos = data;
+      render();
+    })
+    .catch((errorMessage) => {
+      toastr.error(errorMessage);
+    })
+    .finally(() => {
+      addEventListeners();
+      loadingModal.close();
+    });
 }
 
-onLoad();
+start();
 
 // ======== program lifecycles =========
 // - onLoad
