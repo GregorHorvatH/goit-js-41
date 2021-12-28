@@ -134,16 +134,18 @@ function print() {
 
 function addTodo(value) {
   const newTodo = {
-    id: uuidv4(),
+    // id: uuidv4(),
     label: value,
     checked: false,
   };
 
-  todos.push(newTodo);
   toastr.success('todo is successfully created');
-  saveData('todos', todos);
 
-  return Promise.resolve();
+  return saveData('todos', newTodo).then((data) => {
+    todos.push(data);
+  });
+
+  // return Promise.resolve();
 }
 
 function handleSubmit(e) {
