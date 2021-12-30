@@ -27,3 +27,8 @@ li.list-group-item {
 .basicLightbox {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
+.pages {
+  display: flex;
+  flex-wrap: wrap;
+}
