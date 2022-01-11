@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import toastr from 'toastr';
 import * as basicLightbox from 'basiclightbox';
-import { fetchTodos, saveData } from './api';
+import { fetchTodos, createTodo, deleteTodo, updateTodo } from './api';
 
 const deleteModal = basicLightbox.create(`
 <div class="delete-modal">
@@ -65,13 +65,15 @@ function handleModalCancel() {
 }
 
 function handleModalDelete() {
-  todos = todos.filter((todo) => todo.id !== currentId);
   deleteModal.close();
 
   loadingModal.show();
-  saveData('todos', todos)
+  deleteTodo(currentId)
     .then(() => {
       toastr.warning('todo is successfully deleted');
+    })
+    .then(() => {
+      todos = todos.filter(({ id }) => id != currentId);
     })
     .finally(() => {
       render();
@@ -87,7 +89,7 @@ function render() {
 }
 
 function deleteItem(id) {
-  const { label } = todos.find((todo) => todo.id === id);
+  const { label } = todos.find((todo) => todo.id == id);
 
   currentId = id;
   refs.modalText.textContent = label;
@@ -95,20 +97,20 @@ function deleteItem(id) {
 }
 
 function toggleItem(id) {
-  todos = todos.map((todo) =>
-    todo.id === id
-      ? {
-          ...todo,
-          checked: !todo.checked,
-        }
-      : todo,
-  );
+  const todo = todos.find((todo) => todo.id == id);
+  const payload = {
+    checked: !todo.checked,
+  };
 
   loadingModal.show();
-  saveData('todos', todos).finally(() => {
-    render();
-    loadingModal.close();
-  });
+  updateTodo(id, payload)
+    .then((data) => {
+      todos = todos.map((todo) => (todo.id == id ? data : todo));
+    })
+    .finally(() => {
+      render();
+      loadingModal.close();
+    });
 }
 
 function handleClick(e) {
@@ -141,7 +143,7 @@ function addTodo(value) {
 
   toastr.success('todo is successfully created');
 
-  return saveData('todos', newTodo).then((data) => {
+  return createTodo(newTodo).then((data) => {
     todos.push(data);
   });
 
@@ -168,12 +170,22 @@ function addEventListeners() {
   refs.modalDeleteButton.addEventListener('click', handleModalDelete);
 }
 
+function scrollDown() {
+  const y = document.documentElement.scrollHeight;
+
+  window.scrollBy({
+    top: y,
+    behavior: 'smooth',
+  });
+}
+
 function start() {
   loadingModal.show();
-  fetchTodos('todos')
+  fetchTodos()
     .then((data) => {
       todos = data;
       render();
+      scrollDown();
     })
     .catch((errorMessage) => {
       toastr.error(errorMessage);

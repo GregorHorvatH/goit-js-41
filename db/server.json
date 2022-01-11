@@ -1,0 +1,14 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "label": "wave culture",
+      "checked": true
+    },
+    {
+      "id": 2,
+      "label": "купить молоко",
+      "checked": false
+    }
+  ]
+}

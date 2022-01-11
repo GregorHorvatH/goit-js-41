@@ -1,39 +1,28 @@
-export function fetchTodos(key) {
-  return fetch('http://localhost:3000/todos').then((response) =>
-    response.json(),
-  );
+import axios from 'axios';
 
-  // const delay = ~~(Math.random() * 3000);
-  // console.log('load delay:', delay);
+const server1 = axios.create({
+  baseURL: 'https://61ddd77df60e8f0017668aa9.mockapi.io/api/v1',
+});
 
-  // return new Promise((resolve, reject) => {
-  //   setTimeout(() => {
-  //     try {
-  //       resolve(JSON.parse(localStorage.getItem(key)));
-  //     } catch (e) {
-  //       reject('error loading todos');
-  //     }
-  //   }, delay);
+export function fetchTodos() {
+  return server1.get(`/todos`).then((response) => response.data);
+}
+
+export function createTodo(payload) {
+  return server1.post(`/todos`, payload).then((response) => response.data);
+  // return fetch(`https://61ddd77df60e8f0017668aa9.mockapi.io/api/v1/todos`, {
+  //   method: 'POST',
+  //   headers: {},
+  //   body: JSON.stringify(payload),
   // });
 }
 
-export function saveData(key, payload) {
-  return fetch('http://localhost:3000/todos', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  }).then((response) => response.json());
+export function deleteTodo(id) {
+  return server1.delete(`/todos/${id}`).then((response) => response.data);
+}
 
-  // const delay = ~~(Math.random() * 3000);
-  // console.log('load delay:', delay);
-
-  // return new Promise((resolve, reject) => {
-  //   setTimeout(() => {
-  //     localStorage.setItem(key, JSON.stringify(payload));
-
-  //     resolve();
-  //   }, delay);
-  // });
+export function updateTodo(id, payload) {
+  return server1
+    .patch(`/todos/${id}`, payload)
+    .then((response) => response.data);
 }
