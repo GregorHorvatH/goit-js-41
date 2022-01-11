@@ -1,16 +1,18 @@
-import InfiniteScroll from 'infinite-scroll';
 import qs from 'query-string';
 
+const HITS_PER_PAGE = 20;
 const refs = {
   form: document.querySelector('.form'),
   listGroup: document.querySelector('.list-group'),
-  pages: document.querySelector('.pages'),
-  prevPage: document.querySelector('a[data-page="prev"]'),
-  nextPage: document.querySelector('a[data-page="next"]'),
   loadMore: document.querySelector('.btn-success'),
 };
 let maxPage = 1;
 let currentPage = 1;
+let isLoading = false;
+
+function clearList() {
+  refs.listGroup.innerHTML = '';
+}
 
 function renderList(hits) {
   const items = hits.map(
@@ -21,8 +23,23 @@ function renderList(hits) {
         story_title}</a>`,
   );
 
-  // refs.listGroup.innerHTML = '';
   refs.listGroup.insertAdjacentHTML('beforeend', items.join(''));
+}
+
+function disableLoadMoreButton() {
+  refs.loadMore.classList.add('disabled');
+}
+
+function enableLoadMoreButton() {
+  refs.loadMore.classList.remove('disabled');
+}
+
+function renderControls() {
+  if (currentPage === maxPage) {
+    disableLoadMoreButton();
+  } else {
+    enableLoadMoreButton();
+  }
 }
 
 // https://hn.algolia.com/api/
@@ -32,13 +49,15 @@ function fetchNews() {
   const { value } = refs.form.elements.queryText;
   const params = {
     query: value,
-    hitsPerPage: 5,
+    hitsPerPage: HITS_PER_PAGE,
     page: currentPage - 1,
   };
   const strParams = qs.stringify(params);
 
   if (!value) return;
 
+  isLoading = true;
+  disableLoadMoreButton();
   fetch(`${SEARCH_URL}?${strParams}`)
     .then((resp) => resp.json())
     .then(({ nbPages, page, hits }) => {
@@ -46,58 +65,66 @@ function fetchNews() {
       currentPage = page + 1;
 
       renderList(hits);
-      renderPagination();
+      renderControls();
+    })
+    .finally(() => {
+      isLoading = false;
     });
 }
 
 function handleSubmit(e) {
   e.preventDefault();
+
+  maxPage = 1;
+  currentPage = 1;
+
+  clearList();
   setUrlParams(); // optional
   fetchNews();
 }
 
-function handleClickPrevPage(e) {
-  e.preventDefault();
-
-  if (currentPage > 1) {
-    currentPage--;
-    fetchNews();
-  }
-}
-
-function handleClickNextPage(e) {
-  e.preventDefault();
-
-  if (currentPage < maxPage) {
-    currentPage++;
-    fetchNews();
-  }
-}
-
-function handleClickPage(e) {
-  const { page } = e.target.dataset;
-
-  e.preventDefault();
-  currentPage = page;
-  fetchNews();
-}
-
-function handleClickLoadMore() {
+function loadMore() {
   currentPage++;
   fetchNews();
 }
 
+function enableIntersectionObserver() {
+  const options = {
+    root: document.querySelector('.limited-heigh'),
+    threshold: 1,
+  };
+  const handleObserver = ([item]) => {
+    if (item.isIntersecting && !isLoading && currentPage < maxPage) {
+      loadMore();
+    }
+  };
+  const observer = new IntersectionObserver(handleObserver, options);
+
+  observer.observe(refs.loadMore);
+}
+
+// function handleScroll() {
+//   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+//   if (
+//     !isLoading &&
+//     scrollTop + clientHeight >= scrollHeight - 5 &&
+//     currentPage < maxPage
+//   ) {
+//     loadMore();
+//   }
+// }
+
 function addEventListeners() {
   refs.form.addEventListener('submit', handleSubmit);
-  refs.prevPage.addEventListener('click', handleClickPrevPage);
-  refs.nextPage.addEventListener('click', handleClickNextPage);
-  refs.pages.addEventListener('click', handleClickPage);
-  refs.loadMore.addEventListener('click', handleClickLoadMore);
+  refs.loadMore.addEventListener('click', loadMore);
+
+  // window.addEventListener('scroll', handleScroll);
 }
 
 // optional
 function getUrlParams() {
-  const { query } = qs.parse(window.location.search);
+  const { query = '' } = qs.parse(window.location.search);
 
   refs.form.elements.queryText.value = query;
 }
@@ -109,37 +136,11 @@ function setUrlParams() {
   window.history.pushState('', '', `${window.location.origin}\?query=${value}`);
 }
 
-function renderPagination() {
-  const items = [];
-
-  for (let i = 1; i <= maxPage; i += 1) {
-    items.push(
-      `<li class="page-item ${
-        i === currentPage ? 'active' : ''
-      }"><a class="page-link" href="#" data-page=${i}>${i}</a></li>`,
-    );
-  }
-
-  if (currentPage === 1) {
-    refs.prevPage.closest('li').classList.add('disabled');
-  } else {
-    refs.prevPage.closest('li').classList.remove('disabled');
-  }
-
-  if (currentPage === maxPage) {
-    refs.nextPage.closest('li').classList.add('disabled');
-  } else {
-    refs.nextPage.closest('li').classList.remove('disabled');
-  }
-
-  refs.pages.innerHTML = '';
-  refs.pages.insertAdjacentHTML('beforeend', items.join(''));
-}
-
 function start() {
   addEventListeners();
   getUrlParams(); // optional
   fetchNews();
+  enableIntersectionObserver();
 }
 
 start();

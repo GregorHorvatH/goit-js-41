@@ -32,3 +32,9 @@ li.list-group-item {
   display: flex;
   flex-wrap: wrap;
 }
+
+.limited-heigh {
+  height: 300px;
+  overflow: scroll;
+  border: 1px solid lightblue;
+}
