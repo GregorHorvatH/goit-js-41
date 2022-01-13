@@ -49,17 +49,17 @@ console.log('module 11.2');
 // getAccountsByUserName('Peter');
 
 // ========== promise.all ==========
-const getUsers = () =>
-  fetch(`http://localhost:808/users`).then((resp) => resp.json());
+// const getUsers = () =>
+//   fetch(`http://localhost:808/users`).then((resp) => resp.json());
 
-const getAccounts = () =>
-  fetch(`http://localhost:8080/accounts`).then((resp) => resp.json());
+// const getAccounts = () =>
+//   fetch(`http://localhost:8080/accounts`).then((resp) => resp.json());
 
-const mergeAccountsWithUsers = (accounts, users) =>
-  accounts.map((account) => ({
-    userName: users.find((user) => user.id === account.userId).name,
-    ...account,
-  }));
+// const mergeAccountsWithUsers = (accounts, users) =>
+//   accounts.map((account) => ({
+//     userName: users.find((user) => user.id === account.userId).name,
+//     ...account,
+//   }));
 
 // v.1
 // const getAccountsWithuserName = async () => {
@@ -74,14 +74,17 @@ const mergeAccountsWithUsers = (accounts, users) =>
 // };
 
 // v.2
-const getAccountsWithuserName = async () => {
-  const [users, accounts] = await Promise.allSettled([
-    getUsers(),
-    getAccounts(),
-  ]);
+// const getAccountsWithuserName = async () => {
+//   const [users, accounts] = await Promise.allSettled([
+//     getUsers(),
+//     getAccounts(),
+//   ]);
 
-  console.log(users.value || []);
-  console.log(accounts.value);
-};
+//   console.log(users.value || []);
+//   console.log(accounts.value);
+// };
 
-getAccountsWithuserName();
+// getAccountsWithuserName();
+
+// ======= history ======
+// ======= location =====
