@@ -8,7 +8,7 @@
     "build": "webpack --env.mode production",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "server": "json-server --watch db/server.json --port 8080",
+    "server": "json-server --watch db/server.json --port 8080 --delay 1000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/GregorHorvatH/goit-js-41",
   "devDependencies": {
     "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-runtime": "^7.16.8",
     "@babel/preset-env": "^7.10.2",
     "autoprefixer": "^9.8.0",
     "babel-loader": "^8.1.0",
@@ -59,6 +60,7 @@
     "webpackbar": "^4.0.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.16.7",
     "@popperjs/core": "^2.11.0",
     "@vimeo/player": "^2.16.2",
     "axios": "^0.24.0",

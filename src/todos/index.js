@@ -64,21 +64,15 @@ function handleModalCancel() {
   deleteModal.close();
 }
 
-function handleModalDelete() {
+async function handleModalDelete() {
   deleteModal.close();
 
   loadingModal.show();
-  deleteTodo(currentId)
-    .then(() => {
-      toastr.warning('todo is successfully deleted');
-    })
-    .then(() => {
-      todos = todos.filter(({ id }) => id != currentId);
-    })
-    .finally(() => {
-      render();
-      loadingModal.close();
-    });
+  await deleteTodo(currentId);
+  toastr.warning('todo is successfully deleted');
+  todos = todos.filter(({ id }) => id != currentId);
+  render();
+  loadingModal.close();
 }
 
 function render() {
@@ -99,6 +93,7 @@ function deleteItem(id) {
 function toggleItem(id) {
   const todo = todos.find((todo) => todo.id == id);
   const payload = {
+    ...todo,
     checked: !todo.checked,
   };
 
@@ -136,7 +131,6 @@ function print() {
 
 function addTodo(value) {
   const newTodo = {
-    // id: uuidv4(),
     label: value,
     checked: false,
   };
@@ -146,21 +140,19 @@ function addTodo(value) {
   return createTodo(newTodo).then((data) => {
     todos.push(data);
   });
-
-  // return Promise.resolve();
 }
 
-function handleSubmit(e) {
+const handleSubmit = async (e) => {
   e.preventDefault();
 
   const { value } = e.target.elements.text;
 
   if (!value) return;
 
-  addTodo(value)
-    .then(() => refs.form.reset())
-    .then(render);
-}
+  await addTodo(value);
+  refs.form.reset();
+  render();
+};
 
 function addEventListeners() {
   refs.listGroup.addEventListener('click', handleClick);
@@ -179,21 +171,20 @@ function scrollDown() {
   });
 }
 
-function start() {
+async function start() {
   loadingModal.show();
-  fetchTodos()
-    .then((data) => {
-      todos = data;
-      render();
-      scrollDown();
-    })
-    .catch((errorMessage) => {
-      toastr.error(errorMessage);
-    })
-    .finally(() => {
-      addEventListeners();
-      loadingModal.close();
-    });
+
+  try {
+    const data = await fetchTodos();
+    todos = data;
+    render();
+    scrollDown();
+  } catch (errorMessage) {
+    toastr.error(errorMessage);
+  }
+
+  addEventListeners();
+  loadingModal.close();
 }
 
 start();

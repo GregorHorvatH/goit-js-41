@@ -10,5 +10,52 @@
       "label": "купить молоко",
       "checked": false
     }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Bobby"
+    },
+    {
+      "id": 2,
+      "name": "Peter"
+    }
+  ],
+  "accounts": [
+    {
+      "id": 1,
+      "userId": 1,
+      "number": 1212121212121,
+      "balance": 100,
+      "currency": "USD"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "number": 2323232323232,
+      "balance": 200,
+      "currency": "EUR"
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "number": 34343434343434,
+      "balance": 250,
+      "currency": "GBP"
+    },
+    {
+      "id": 4,
+      "userId": 2,
+      "number": 5555555555555,
+      "balance": 111,
+      "currency": "USD"
+    },
+    {
+      "id": 5,
+      "userId": 2,
+      "number": 7777777777777,
+      "balance": 230,
+      "currency": "GBP"
+    }
   ]
 }
